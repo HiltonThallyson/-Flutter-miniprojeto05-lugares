@@ -18,7 +18,7 @@ class _ImageInputState extends State<ImageInput> {
   //Capturando Imagem
   File? _storedImage;
 
-  _takePicture() async {
+  void _takePicture() async {
     final ImagePicker _picker = ImagePicker();
     XFile imageFile = await _picker.pickImage(
       source: ImageSource.camera,
@@ -31,7 +31,27 @@ class _ImageInputState extends State<ImageInput> {
       _storedImage = File(imageFile.path);
     });
 
-    //pegar pasta que posso salvar documentos
+    _uploadImage();
+  }
+
+  void _pickImageInGallery() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile imageFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 600,
+    ) as XFile;
+
+    if (imageFile == null) return;
+
+    setState(() {
+      _storedImage = File(imageFile.path);
+    });
+
+    _uploadImage();
+  }
+
+  void _uploadImage() async {
+//pegar pasta que posso salvar documentos
     final appDir = await syspaths.getApplicationDocumentsDirectory();
     String fileName = path.basename(_storedImage!.path);
     final savedImage = await _storedImage!.copy(
@@ -63,10 +83,20 @@ class _ImageInputState extends State<ImageInput> {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: TextButton.icon(
-            icon: const Icon(Icons.camera),
-            label: const Text('Tirar foto'),
-            onPressed: _takePicture,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton.icon(
+                icon: const Icon(Icons.camera),
+                label: const Text('Tirar foto'),
+                onPressed: _takePicture,
+              ),
+              TextButton.icon(
+                icon: const Icon(Icons.folder),
+                label: const Text('Carregar foto da galeria'),
+                onPressed: _pickImageInGallery,
+              ),
+            ],
           ),
         ),
       ],
