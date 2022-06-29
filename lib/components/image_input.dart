@@ -20,15 +20,24 @@ class _ImageInputState extends State<ImageInput> {
 
   void _takePicture() async {
     final ImagePicker _picker = ImagePicker();
-    XFile imageFile = await _picker.pickImage(
+    XFile? imageFile;
+    await _picker
+        .pickImage(
       source: ImageSource.camera,
       maxWidth: 600,
-    ) as XFile;
+    )
+        .then((file) {
+      if (file != null) {
+        imageFile = file;
+      } else {
+        imageFile = null;
+      }
+    });
 
     if (imageFile == null) return;
 
     setState(() {
-      _storedImage = File(imageFile.path);
+      _storedImage = File(imageFile!.path);
     });
 
     _uploadImage();
@@ -36,22 +45,30 @@ class _ImageInputState extends State<ImageInput> {
 
   void _pickImageInGallery() async {
     final ImagePicker _picker = ImagePicker();
-    XFile imageFile = await _picker.pickImage(
+    XFile? imageFile;
+    await _picker
+        .pickImage(
       source: ImageSource.gallery,
       maxWidth: 600,
-    ) as XFile;
+    )
+        .then((file) {
+      if (file != null) {
+        imageFile = file;
+      } else {
+        imageFile = null;
+      }
+    });
 
     if (imageFile == null) return;
 
     setState(() {
-      _storedImage = File(imageFile.path);
+      _storedImage = File(imageFile!.path);
     });
 
     _uploadImage();
   }
 
   void _uploadImage() async {
-//pegar pasta que posso salvar documentos
     final appDir = await syspaths.getApplicationDocumentsDirectory();
     String fileName = path.basename(_storedImage!.path);
     final savedImage = await _storedImage!.copy(

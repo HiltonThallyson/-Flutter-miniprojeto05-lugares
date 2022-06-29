@@ -15,7 +15,7 @@ class PlaceDetailScreen extends StatelessWidget {
 
     final Place place = ModalRoute.of(context)!.settings.arguments as Place;
     return Scaffold(
-        appBar: AppBar(title: const Text('Details')),
+        appBar: AppBar(title: const Text('Detalhes do lugar')),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ class PlaceDetailScreen extends StatelessWidget {
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black),
-                                      text: 'Address: ',
+                                      text: 'Endereço: ',
                                       children: [
                                     TextSpan(
                                         text: place.location!.address,
@@ -102,7 +102,7 @@ class PlaceDetailScreen extends StatelessWidget {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         const Text(
-                          'Phone: ',
+                          'Telefone: ',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

@@ -35,19 +35,28 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   Future<void> _selectOnMap() async {
-    final LatLng selectedPosition = await Navigator.of(context).push(
+    LatLng? selectedPosition;
+    await Navigator.of(context)
+        .push(
       MaterialPageRoute(
           fullscreenDialog: true, builder: ((context) => MapScreen())),
-    );
+    )
+        .then((position) {
+      if (position != null) {
+        selectedPosition = position;
+      } else {
+        selectedPosition = null;
+      }
+    });
 
     if (selectedPosition == null) return;
 
     setAddressBasedOnLatLong(
-        selectedPosition.latitude, selectedPosition.longitude);
+        selectedPosition!.latitude, selectedPosition!.longitude);
 
     final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
-        latitude: selectedPosition.latitude,
-        longitude: selectedPosition.longitude);
+        latitude: selectedPosition!.latitude,
+        longitude: selectedPosition!.longitude);
 
     setState(() {
       _previewImageUrl = staticMapImageUrl;

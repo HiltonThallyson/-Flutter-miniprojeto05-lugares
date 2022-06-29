@@ -19,7 +19,6 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
   //deve receber a imagem
   File? _pickedImage;
   PlaceLocation? _location;
-  Place? _place;
 
   void _selectImage(File? pickedImage) {
     _pickedImage = pickedImage;
@@ -75,12 +74,12 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
                     TextField(
                       controller: _phoneNumberController,
                       decoration: const InputDecoration(
-                        labelText: 'Telefone',
-                      ),
+                          labelText: 'Telefone',
+                          hintText: 'ex.:55(84)xxxxx-xxxx ou 5584xxxxxxxxx'),
                     ),
                     const SizedBox(height: 10),
                     ImageInput(_selectImage),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     LocationInput(_setLocation),
                   ],
                 ),
