@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:f9_recursos_nativos/provider/great_places.dart';
 import 'package:f9_recursos_nativos/screens/place_detail_screen.dart';
 import 'package:f9_recursos_nativos/screens/place_form_screen.dart';
@@ -8,7 +10,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  await dotenv.load();
+  await dotenv.load(mergeWith: Platform.environment);
   runApp(const MyApp());
 }
 

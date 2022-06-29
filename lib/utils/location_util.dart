@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-const GOOGLE_API_KEY = 'AIzaSyBublVKJBFrqCQEsxfZH7hP8wYeKKwaXDQ';
+final GOOGLE_API_KEY = dotenv.get("GOOGLE_API_KEY");
 
 class LocationUtil {
   static String generateLocationPreviewImage({
@@ -20,10 +21,6 @@ class LocationUtil {
   }) {
     return 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&location_type=ROOFTOP&result_type=street_address&key=$GOOGLE_API_KEY';
   }
-
-  // Future<void> getGeneratedAddress(String url) async {
-  //   final response = await http.get(Uri.parse(url));
-  // }
 
   static Future<String?> getGenetaredAddress(String url) async {
     final response = await http.get(Uri.parse(url));

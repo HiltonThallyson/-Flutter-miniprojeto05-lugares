@@ -1,16 +1,12 @@
-# f9_recursos_nativos
+# miniprojeto05 - lugares
 
-A new Flutter project.
+To run the app, first add this to the AndroidManifest.xml:
+<!-- <meta-data 
+            android:name="com.google.android.geo.API_KEY"
+            android:value="Your api key" /> -->
 
-## Getting Started
+Then, create a file called .env in the same folder as lib and add those lines:
 
-This project is a starting point for a Flutter application.
+GOOGLE_API_KEY = 'Your API key'
+FIREBASE_URL = 'your database url'
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
