@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:f9_recursos_nativos/provider/great_places.dart';
+import 'package:f9_recursos_nativos/screens/address_form_screen.dart';
 import 'package:f9_recursos_nativos/screens/place_detail_screen.dart';
 import 'package:f9_recursos_nativos/screens/place_form_screen.dart';
 import 'package:f9_recursos_nativos/screens/places_list_screen.dart';
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         home: PlacesListScreen(),
         routes: {
           AppRoutes.PLACE_FORM: (ctx) => PlaceFormScreen(),
-          AppRoutes.PLACE_DETAIL: (context) => PlaceDetailScreen()
+          AppRoutes.PLACE_DETAIL: (context) => PlaceDetailScreen(),
+          AppRoutes.ADDR_FORM: (context) => AddressFormScreen(),
         },
       ),
     );

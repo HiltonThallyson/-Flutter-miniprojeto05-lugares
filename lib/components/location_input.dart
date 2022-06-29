@@ -1,5 +1,6 @@
 import 'package:f9_recursos_nativos/models/place.dart';
 import 'package:f9_recursos_nativos/screens/map_screen.dart';
+import 'package:f9_recursos_nativos/utils/app_routes.dart';
 import 'package:f9_recursos_nativos/utils/location_util.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -71,6 +72,17 @@ class _LocationInputState extends State<LocationInput> {
     });
   }
 
+  void _setLocationManually(PlaceLocation newPlaceLocation) {
+    final staticMapImageUrl = LocationUtil.generateLocationPreviewImage(
+        latitude: newPlaceLocation.latitude,
+        longitude: newPlaceLocation.longitude);
+    setState(() {
+      _placeLocation = newPlaceLocation;
+      _previewImageUrl = staticMapImageUrl;
+      widget.setLocation(_placeLocation);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,9 +105,15 @@ class _LocationInputState extends State<LocationInput> {
                   width: double.infinity,
                 ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Wrap(
           children: [
+            TextButton.icon(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.ADDR_FORM).then(
+                      (value) => _setLocationManually(value as PlaceLocation));
+                },
+                icon: const Icon(Icons.add_location),
+                label: const Text('Cadastrar localização')),
             TextButton.icon(
               icon: const Icon(Icons.location_on),
               label: const Text('Localização atual'),

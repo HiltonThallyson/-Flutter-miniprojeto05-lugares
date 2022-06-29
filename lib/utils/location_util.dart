@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:f9_recursos_nativos/models/place.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,5 +28,24 @@ class LocationUtil {
     final data = jsonDecode(response.body);
     final address = data['results'][0]['formatted_address'];
     return address;
+  }
+
+  static Future<PlaceLocation?> getGeneratedLocationFromAddress(
+      String newAddress) async {
+    final url =
+        'https://maps.googleapis.com/maps/api/geocode/json?address=$newAddress&key=${dotenv.get('GOOGLE_API_KEY')}';
+    final response = await http.get(Uri.parse(url));
+
+    final data = jsonDecode(response.body);
+
+    if (data['status'] == 'OK') {
+      return PlaceLocation(
+        latitude: data['results'][0]['geometry']['location']['lat'],
+        longitude: data['results'][0]['geometry']['location']['lng'],
+        address: newAddress,
+      );
+    } else {
+      return null;
+    }
   }
 }
