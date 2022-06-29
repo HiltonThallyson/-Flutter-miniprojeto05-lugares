@@ -109,8 +109,13 @@ class _LocationInputState extends State<LocationInput> {
           children: [
             TextButton.icon(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.ADDR_FORM).then(
-                      (value) => _setLocationManually(value as PlaceLocation));
+                  Navigator.of(context)
+                      .pushNamed(AppRoutes.ADDR_FORM)
+                      .then((value) {
+                    if (value != null) {
+                      _setLocationManually(value as PlaceLocation);
+                    }
+                  });
                 },
                 icon: const Icon(Icons.add_location),
                 label: const Text('Cadastrar localização')),

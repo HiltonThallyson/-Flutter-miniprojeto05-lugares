@@ -30,6 +30,18 @@ class AddressFormScreen extends StatelessWidget {
     return LocationUtil.getGeneratedLocationFromAddress(_address);
   }
 
+  void _submitForm(BuildContext context) async {
+    final location = await _generateCoordinatesFromAddress();
+    if (location != null) {
+      Navigator.pop(context, location);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Endereço inválido!'),
+        duration: Duration(seconds: 3),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +49,7 @@ class AddressFormScreen extends StatelessWidget {
         title: const Text('Cadastrar endereço'),
         actions: [
           IconButton(
-              onPressed: () {
-                final location = _generateCoordinatesFromAddress();
-                if (location != null) {
-                  Navigator.pop(context, location);
-                }
-              },
+              onPressed: () => _submitForm(context),
               icon: const Icon(Icons.save))
         ],
       ),
@@ -94,12 +101,7 @@ class AddressFormScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
-        onPressed: () {
-          final location = _generateCoordinatesFromAddress();
-          if (location != null) {
-            Navigator.pop(context, location);
-          }
-        },
+        onPressed: () => _submitForm(context),
         child: const Text('Confirmar'),
       ),
     );
