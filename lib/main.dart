@@ -6,12 +6,15 @@ import 'package:f9_recursos_nativos/screens/place_detail_screen.dart';
 import 'package:f9_recursos_nativos/screens/place_form_screen.dart';
 import 'package:f9_recursos_nativos/screens/places_list_screen.dart';
 import 'package:f9_recursos_nativos/utils/app_routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   await dotenv.load(mergeWith: Platform.environment);
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

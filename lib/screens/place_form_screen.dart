@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:f9_recursos_nativos/controllers/firebase_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:f9_recursos_nativos/components/image_input.dart';
 import 'package:f9_recursos_nativos/components/location_input.dart';
@@ -39,24 +40,29 @@ class _PlaceFormScreenState extends State<PlaceFormScreen> {
     }
 
     Place _newPlace = Place(
-        id: '',
+        id: DateTime.now().toString(),
         title: _titleController.text,
         phoneNumber: _phoneNumberController.text,
         image: _pickedImage!,
         location: _location);
 
-    _uploadImage(_pickedImage!);
-
     _uploadToFirebase(_newPlace);
+    _uploadImage(_pickedImage!, _newPlace);
 
     Provider.of<GreatPlaces>(context, listen: false).addPlace(_newPlace);
 
     Navigator.of(context).pop();
   }
 
-  void _uploadImage(File image) {}
+  void _uploadImage(File image, Place place) async {
+    final storage =
+        FirebaseStorage.instance.ref().child('images').child(place.id + '.jpg');
+    await storage.putFile(image);
+  }
 
-  void _uploadToFirebase(Place newPlace) {}
+  void _uploadToFirebase(Place newPlace) {
+    FirebaseController.uploadToFirebase(newPlace);
+  }
 
   @override
   Widget build(BuildContext context) {

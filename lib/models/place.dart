@@ -10,10 +10,14 @@ class PlaceLocation {
     required this.longitude,
     required this.address,
   });
+
+  Map<String, dynamic> toJson() {
+    return {'lat': latitude, 'lgn': longitude, 'address': address};
+  }
 }
 
 class Place {
-  final String id;
+  String id;
   final String title;
   final String phoneNumber;
   final PlaceLocation? location;
