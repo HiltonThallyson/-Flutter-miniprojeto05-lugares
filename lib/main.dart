@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:f9_recursos_nativos/controllers/firebase_controller.dart';
 import 'package:f9_recursos_nativos/provider/great_places.dart';
 import 'package:f9_recursos_nativos/screens/address_form_screen.dart';
 import 'package:f9_recursos_nativos/screens/place_detail_screen.dart';
@@ -24,8 +25,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GreatPlaces(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => GreatPlaces()),
+        ChangeNotifierProvider(create: (context) => FirebaseController()),
+      ],
       child: MaterialApp(
         title: 'Great Places',
         theme: ThemeData().copyWith(
