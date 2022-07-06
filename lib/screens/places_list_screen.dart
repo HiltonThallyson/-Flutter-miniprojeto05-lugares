@@ -6,7 +6,12 @@ import 'package:f9_recursos_nativos/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PlacesListScreen extends StatelessWidget {
+class PlacesListScreen extends StatefulWidget {
+  @override
+  State<PlacesListScreen> createState() => _PlacesListScreenState();
+}
+
+class _PlacesListScreenState extends State<PlacesListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +20,9 @@ class PlacesListScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.PLACE_FORM);
+              Navigator.of(context).pushNamed(AppRoutes.PLACE_FORM).then((_) {
+                setState(() {});
+              });
             },
             icon: const Icon(Icons.add),
           )
